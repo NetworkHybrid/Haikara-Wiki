@@ -1,0 +1,455 @@
+/* ============================================================
+   Haikara Wiki – Custom Theme
+   Inspired by: lf93-statisches-routing.html
+   Colors: Dark bg · Teal · Blue · Orange
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap');
+
+/* ── CSS Variables ───────────────────────────────────────── */
+:root,
+[data-md-color-scheme="slate"] {
+  --bg:       #0d0f14;
+  --surface:  #13161e;
+  --surface2: #1a1e28;
+  --border:   #252a38;
+  --accent:   #00d4aa;
+  --accent2:  #4f8ef7;
+  --accent3:  #f7974f;
+  --text:     #e2e8f0;
+  --muted:    #7a8499;
+  --success:  #22c55e;
+  --warning:  #f59e0b;
+  --mono:     'JetBrains Mono', monospace;
+  --sans:     'Syne', sans-serif;
+
+  /* MkDocs Material overrides */
+  --md-default-bg-color:          var(--bg);
+  --md-default-fg-color:          var(--text);
+  --md-default-fg-color--light:   var(--muted);
+  --md-default-fg-color--lighter: var(--border);
+  --md-code-bg-color:             #0a0c10;
+  --md-code-fg-color:             #a8c8a0;
+  --md-primary-fg-color:          var(--accent);
+  --md-primary-bg-color:          var(--text);
+  --md-accent-fg-color:           var(--accent2);
+  --md-footer-bg-color:           var(--surface);
+  --md-footer-fg-color:           var(--muted);
+}
+
+/* ── Base Fonts ──────────────────────────────────────────── */
+body,
+.md-typeset {
+  font-family: var(--sans) !important;
+}
+
+code, pre,
+.md-typeset code,
+.md-typeset pre {
+  font-family: var(--mono) !important;
+}
+
+/* ── Background & Surfaces ───────────────────────────────── */
+html,
+body {
+  background: var(--bg) !important;
+}
+
+.md-main,
+.md-main__inner,
+.md-container {
+  background: var(--bg) !important;
+}
+
+.md-sidebar,
+.md-sidebar__inner,
+.md-sidebar__scrollwrap {
+  background: var(--bg) !important;
+  border: none;
+}
+
+.md-sidebar--primary {
+  border-right: 1px solid var(--border) !important;
+}
+
+.md-sidebar--secondary {
+  border-left: none !important;
+}
+
+.md-header {
+  background: rgba(13, 15, 20, 0.92) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+}
+
+.md-tabs {
+  background: var(--bg) !important;
+  border-bottom: 1px solid var(--border);
+}
+
+.md-footer,
+.md-footer-meta {
+  background: var(--surface) !important;
+  border-top: 1px solid var(--border);
+}
+
+/* Scrollbar komplett durchgängig */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--bg) !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+/* ── Navigation ──────────────────────────────────────────── */
+.md-nav__title {
+  font-family: var(--mono) !important;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.md-nav__link {
+  font-size: 0.82rem;
+  color: var(--muted);
+  border-radius: 6px;
+  transition: all 0.15s;
+  padding: 0.45rem 0.7rem;
+}
+
+.md-nav__link:hover,
+.md-nav__link--active {
+  color: var(--text) !important;
+  background: var(--surface2);
+}
+
+.md-nav__link--active {
+  color: var(--accent) !important;
+}
+
+/* ── Header Logo & Site Name ─────────────────────────────── */
+.md-header__title {
+  font-family: var(--mono) !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── Headings ────────────────────────────────────────────── */
+.md-typeset h1 {
+  font-family: var(--sans);
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #fff 40%, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.md-typeset h2 {
+  font-family: var(--sans);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+
+.md-typeset h3 {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent2);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ── Tables ──────────────────────────────────────────────── */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--surface2);
+  color: var(--muted);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(37,42,56,0.6);
+  color: var(--text);
+}
+
+.md-typeset table:not([class]) tr:last-child td {
+  border-bottom: none;
+}
+
+.md-typeset table:not([class]) tr:hover td {
+  background: rgba(255,255,255,0.02);
+}
+
+/* ── Code Blocks ─────────────────────────────────────────── */
+.md-typeset pre {
+  background: #0a0c10;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.md-typeset code {
+  background: rgba(79,142,247,0.1);
+  color: var(--accent2);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.85em;
+}
+
+.md-typeset pre code {
+  background: transparent;
+  color: #a8c8a0;
+  padding: 0;
+}
+
+/* Code block header bar */
+.md-typeset .highlight .filename {
+  background: var(--surface2);
+  color: var(--accent2);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  border-radius: 10px 10px 0 0;
+}
+
+/* Copy button */
+.md-typeset .highlight button.md-clipboard {
+  color: var(--muted);
+}
+.md-typeset .highlight button.md-clipboard:hover {
+  color: var(--accent);
+}
+
+/* ── Admonitions (Callouts) ──────────────────────────────── */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 0 8px 8px 0;
+  border: none;
+  border-left: 3px solid var(--accent3);
+  background: rgba(247,151,79,0.06);
+  box-shadow: none;
+  font-size: 0.88rem;
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  background: transparent !important;
+  font-family: var(--mono) !important;
+  font-size: 0.7rem !important;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent3) !important;
+  padding-left: 0.8rem;
+}
+
+.md-typeset .admonition-title::before,
+.md-typeset summary::before {
+  color: var(--accent3) !important;
+}
+
+/* tip → teal */
+.md-typeset .admonition.tip,
+.md-typeset details.tip {
+  border-left-color: var(--accent);
+  background: rgba(0,212,170,0.05);
+}
+.md-typeset .tip > .admonition-title,
+.md-typeset .tip > summary {
+  color: var(--accent) !important;
+}
+.md-typeset .tip > .admonition-title::before,
+.md-typeset .tip > summary::before {
+  color: var(--accent) !important;
+}
+
+/* note → blue */
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-left-color: var(--accent2);
+  background: rgba(79,142,247,0.06);
+}
+.md-typeset .note > .admonition-title,
+.md-typeset .note > summary {
+  color: var(--accent2) !important;
+}
+.md-typeset .note > .admonition-title::before,
+.md-typeset .note > summary::before {
+  color: var(--accent2) !important;
+}
+
+/* success → green */
+.md-typeset .admonition.success,
+.md-typeset details.success {
+  border-left-color: var(--success);
+  background: rgba(34,197,94,0.05);
+}
+.md-typeset .success > .admonition-title,
+.md-typeset .success > summary {
+  color: var(--success) !important;
+}
+
+/* warning */
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+  border-left-color: var(--warning);
+  background: rgba(245,158,11,0.06);
+}
+.md-typeset .warning > .admonition-title,
+.md-typeset .warning > summary {
+  color: var(--warning) !important;
+}
+.md-typeset .warning > .admonition-title::before,
+.md-typeset .warning > summary::before {
+  color: var(--warning) !important;
+}
+
+/* ── Search ──────────────────────────────────────────────── */
+.md-search__form {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.md-search__input {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text);
+}
+
+.md-search__input::placeholder {
+  color: var(--muted);
+}
+
+
+/* ── Links ───────────────────────────────────────────────── */
+.md-typeset a {
+  color: var(--accent2);
+  text-decoration: none;
+}
+
+.md-typeset a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* ── Tags / Badges ───────────────────────────────────────── */
+.md-typeset .md-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: 100px;
+  background: rgba(0,212,170,0.12);
+  color: var(--accent);
+  border: 1px solid rgba(0,212,170,0.25);
+}
+
+/* ── Content Area & Width ────────────────────────────────── */
+.md-content {
+  background: var(--bg);
+}
+
+/* Volle Breite nutzen */
+.md-grid {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 1rem !important;
+}
+
+.md-content__inner {
+  max-width: 100% !important;
+  padding: 2rem 2.5rem;
+  margin: 0 !important;
+}
+
+.md-header__inner {
+  max-width: 100% !important;
+  padding: 0 1.5rem !important;
+}
+
+/* Leeren Bereich unter dem Header entfernen */
+.md-main__inner {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Tabs näher am Header */
+.md-tabs {
+  min-height: 36px;
+}
+
+.md-tabs__list {
+  padding: 0 0.5rem;
+}
+
+.md-tabs__link {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+  opacity: 1 !important;
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  color: var(--accent) !important;
+}
+
+.md-typeset p {
+  color: #a8b3c8;
+  font-size: 0.92rem;
+}
+
+.md-typeset strong {
+  color: var(--text);
+}
+
+hr {
+  border-color: var(--border) !important;
+}

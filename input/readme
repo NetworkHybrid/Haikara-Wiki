@@ -1,0 +1,58 @@
+Als hier fasse ich einmal kurz für dich zusammen.
+Bitte zuerst diese Datei vollständig lesen!
+
+
+Zusammen mit Claude habe ich die Datei network-plan.docx erstellt. Sie ist nicht ganz Fehlerfrei bietet aber erstmal einen groben Überblick.
+
+Die Datei GrobesNetzwerk.png soll das ganze visuelle darstellen.
+
+Aber egal.
+Was wichtig ist und interesannt (was läuft wo?):
+
+Raspberrypi-1 (10.0.1.10):
+- OpenMediaVault
+- Plex
+
+Raspberrypi-2 (10.0.2.25):
+- homeassistant 
+- PiHole
+- Vaultwarden
+- No-IP-Connection
+- Nginx-Proxy-Manager
+- Portainer
+
+Raspberrypi-3 (10.0.4.76):
+- immich
+- OpenClaw (momentan außer Betrieb)
+
+24/7 - PC (10.0.2.1)
+- Xampp Datenbank (für Schule, Inventar (BETA)
+- phpipam
+- NextCloud
+- AMP (für GameServer)
+- bald das Wiki?
+
+
+- Mein Router ist ein UCG Ultra wie aus den anderen Dateien hervorgehen sollte. (Hinter einer Fritz!Box)
+- Ich habe ein dyndns (hybrid05.ddns.net) womit ich von außen ins Heimnetz kommen kann. (dafür sorgt dann NPM)
+- Ich habe zudem eine eigene Domain: networkhybrid.de; reiher-it.de; haikara.de (in Überlegung)
+- Ein SSL-Zertifikat habe ich als Wildcard also für *.networkhybrid.de
+- Folgende "Subdomains" sind bereits in Benutzung:
+    - networkhybrid.de / www.networkhybrid.de (momentan keine funktion)
+    - amp.networkhybrid.de
+    - bluemap.networkhybid.de (momentan keine Funktion)
+    - cloud.networkhybrid.de (NextCloud)
+    - db.networkhybrid.de (meine Datenbank)
+    - homeassistant.networkhybrid.de
+    - immich.networkhybrid.de
+    - inventar.networkhybrid.de
+    - ip.networkhybrid.de
+    - npm.networkhybrid.de
+    - omv.networkhybrid.de
+    - plex.networkhybrid.de
+    - portainer.networkhybrid.de
+    - proxmox.networkhybrid.de (momentan keine Funktion)
+    - vault.networkhybrid.de (Vaultwarden)
+    - wiki.networkhybrid.de (vorerst die Heimat für das Wiki, bis ich vielleicht irgendwann auf haikara umstelle (in ferner Zukunft))
+    
+    
