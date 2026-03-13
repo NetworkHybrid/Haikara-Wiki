@@ -3,6 +3,7 @@ site_description: Persönliches Wissens-Wiki
 
 theme:
   name: material
+  custom_dir: docs/overrides
   language: de
   font:
     text: Syne

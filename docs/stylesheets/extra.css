@@ -68,10 +68,6 @@ body {
   border: none;
 }
 
-.md-sidebar--primary {
-  border-right: 1px solid var(--border) !important;
-}
-
 .md-sidebar--secondary {
   border-left: none !important;
 }
@@ -364,6 +360,21 @@ body {
   color: var(--muted);
 }
 
+/* Suche in Tabs-Leiste */
+.md-tabs {
+  display: flex !important;
+  align-items: center;
+}
+
+.md-tabs .md-search {
+  margin-left: auto;
+  padding: 0 0.75rem;
+}
+
+.md-tabs .md-search__form {
+  height: 1.8rem;
+}
+
 
 /* ── Links ───────────────────────────────────────────────── */
 .md-typeset a {
@@ -452,4 +463,103 @@ body {
 
 hr {
   border-color: var(--border) !important;
+}
+
+/* ── Account Widget ──────────────────────────────────────── */
+#nh-auth-widget {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.nh-login-btn {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent) !important;
+  border: 1px solid rgba(0,212,170,0.35);
+  border-radius: 6px;
+  padding: 0.3rem 0.75rem;
+  text-decoration: none !important;
+  transition: all 0.15s;
+}
+
+.nh-login-btn:hover {
+  background: rgba(0,212,170,0.1);
+  border-color: var(--accent);
+}
+
+.nh-account {
+  position: relative;
+  cursor: pointer;
+}
+
+.nh-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.nh-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem;
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  z-index: 9999;
+}
+
+.nh-account.open .nh-dropdown {
+  display: block;
+}
+
+.nh-dropdown-name {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.nh-dropdown-email {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+
+.nh-dropdown-divider {
+  border-color: var(--border) !important;
+  margin: 0.6rem 0;
+}
+
+.nh-dropdown-item {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted) !important;
+  text-decoration: none !important;
+  padding: 0.3rem 0;
+  transition: color 0.15s;
+}
+
+.nh-dropdown-item:hover {
+  color: var(--accent) !important;
 }

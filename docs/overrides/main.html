@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    (function () {
+      var AUTHENTIK_URL = "https://auth.networkhybrid.de";
+      var CLIENT_ID = "Mh4bYvOxhwTcuJYzkCKBwB5rcA17WtMDkdO829qY";
+      var REDIRECT_URI = "https://wiki.networkhybrid.de/";
+      var LOGOUT_URL = AUTHENTIK_URL + "/if/flow/default-invalidation-flow/";
+      var BS_GROUPS = ["wiki-viewer-berufsschule", "wiki-editor", "wiki-admin"];
+
+      // ── PKCE helpers ──────────────────────────────────────
+      function generateVerifier() {
+        var arr = new Uint8Array(64);
+        crypto.getRandomValues(arr);
+        return btoa(String.fromCharCode.apply(null, arr))
+          .replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+      }
+
+      function generateChallenge(verifier) {
+        var enc = new TextEncoder().encode(verifier);
+        return crypto.subtle.digest("SHA-256", enc).then(function (hash) {
+          return btoa(String.fromCharCode.apply(null, new Uint8Array(hash)))
+            .replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+        });
+      }
+
+      // ── Nav: Berufsschule Tab ein-/ausblenden ─────────────
+      function setBerufsschuleVisible(visible) {
+        document.querySelectorAll(".md-tabs__item").forEach(function (tab) {
+          var link = tab.querySelector("a");
+          if (link && link.textContent.trim() === "Berufsschule") {
+            tab.style.display = visible ? "" : "none";
+          }
+        });
+      }
+
+      function setBerufsschuleLinksVisible(visible) {
+        document.querySelectorAll('a[href*="berufsschule/"]').forEach(function (link) {
+          var item = link.closest("li") || link;
+          item.style.display = visible ? "" : "none";
+        });
+      }
+
+      function applyNavAccess(user) {
+        var groups = (user && user.groups) ? user.groups : [];
+        var hasAccess = BS_GROUPS.some(function (g) { return groups.indexOf(g) !== -1; });
+        setBerufsschuleVisible(hasAccess);
+        setBerufsschuleLinksVisible(hasAccess);
+      }
+
+      // ── Widget ────────────────────────────────────────────
+      function injectWidget(user) {
+        var header = document.querySelector(".md-header__inner");
+        if (!header) return;
+        var ex = document.getElementById("nh-auth-widget");
+        if (ex) ex.remove();
+        var widget = document.createElement("div");
+        widget.id = "nh-auth-widget";
+
+        if (user) {
+          var initial = (user.name || user.preferred_username || "?")[0].toUpperCase();
+          widget.innerHTML =
+            '<div class="nh-account" id="nh-account-toggle">' +
+              '<div class="nh-avatar">' + initial + '</div>' +
+              '<div class="nh-dropdown">' +
+                '<div class="nh-dropdown-name">' + (user.name || user.preferred_username) + '</div>' +
+                '<div class="nh-dropdown-email">' + (user.email || "") + '</div>' +
+                '<hr class="nh-dropdown-divider">' +
+                '<a href="' + LOGOUT_URL + '" class="nh-dropdown-item">Abmelden</a>' +
+              '</div>' +
+            '</div>';
+          widget.querySelector("#nh-account-toggle").addEventListener("click", function (e) {
+            this.classList.toggle("open");
+            e.stopPropagation();
+          });
+          document.addEventListener("click", function () {
+            var el = document.getElementById("nh-account-toggle");
+            if (el) el.classList.remove("open");
+          });
+        } else {
+          widget.innerHTML = '<a id="nh-login-link" href="#" class="nh-login-btn">Anmelden</a>';
+          widget.querySelector("#nh-login-link").addEventListener("click", function (e) {
+            e.preventDefault();
+            startLogin();
+          });
+        }
+        header.appendChild(widget);
+      }
+
+      // ── Login starten ─────────────────────────────────────
+      function startLogin() {
+        var verifier = generateVerifier();
+        sessionStorage.setItem("pkce_verifier", verifier);
+        generateChallenge(verifier).then(function (challenge) {
+          window.location.href = AUTHENTIK_URL + "/application/o/authorize/?" +
+            "client_id=" + CLIENT_ID +
+            "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) +
+            "&response_type=code" +
+            "&scope=openid%20profile%20email%20groups" +
+            "&code_challenge=" + challenge +
+            "&code_challenge_method=S256";
+        });
+      }
+
+      // ── Token prüfen ──────────────────────────────────────
+      function checkToken(token) {
+        fetch(AUTHENTIK_URL + "/application/o/userinfo/", {
+          headers: { "Authorization": "Bearer " + token }
+        })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (user) {
+            if (user) {
+              injectWidget(user);
+              applyNavAccess(user);
+            } else {
+              sessionStorage.removeItem("nh_token");
+              injectWidget(null);
+              applyNavAccess(null);
+            }
+          })
+          .catch(function () {
+            injectWidget(null);
+            applyNavAccess(null);
+          });
+      }
+
+      // ── Code gegen Token tauschen ─────────────────────────
+      function exchangeCode(code) {
+        var verifier = sessionStorage.getItem("pkce_verifier");
+        sessionStorage.removeItem("pkce_verifier");
+        history.replaceState(null, null, window.location.pathname);
+
+        fetch(AUTHENTIK_URL + "/application/o/token/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: "grant_type=authorization_code" +
+            "&code=" + encodeURIComponent(code) +
+            "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) +
+            "&client_id=" + CLIENT_ID +
+            "&code_verifier=" + verifier
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data.access_token) {
+              sessionStorage.setItem("nh_token", data.access_token);
+              checkToken(data.access_token);
+            } else {
+              injectWidget(null);
+              applyNavAccess(null);
+            }
+          })
+          .catch(function () {
+            injectWidget(null);
+            applyNavAccess(null);
+          });
+      }
+
+      // ── Suche verschieben ─────────────────────────────────
+      function moveSearch() {
+        var search = document.querySelector(".md-header .md-search");
+        var tabs = document.querySelector(".md-tabs");
+        if (search && tabs) tabs.appendChild(search);
+      }
+
+      // ── Init ──────────────────────────────────────────────
+      document.addEventListener("DOMContentLoaded", function () {
+        moveSearch();
+        setBerufsschuleVisible(false);     // standardmäßig versteckt bis Auth-Check
+        setBerufsschuleLinksVisible(false);
+
+        var params = new URLSearchParams(window.location.search);
+        var code = params.get("code");
+
+        if (code) {
+          exchangeCode(code);
+        } else {
+          var token = sessionStorage.getItem("nh_token");
+          if (token) {
+            checkToken(token);
+          } else {
+            injectWidget(null);
+            applyNavAccess(null);
+          }
+        }
+      });
+    })();
+  </script>
+{% endblock %}
