@@ -316,16 +316,43 @@ div.md-nav__link.md-nav__container > .md-nav__link--active {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #ef4444;
-  box-shadow: 16px 0 0 #f59e0b, 32px 0 0 #22c55e;
+  background: #22c55e;
+  box-shadow: -16px 0 0 #f59e0b, -32px 0 0 #ef4444;
 }
 
-.md-typeset .highlight:has(.filename) {
+.md-typeset .highlight:has(.filename),
+.md-typeset .highlight:has(pre.ios),
+.md-typeset .highlight:has(pre.cisco) {
   position: relative;
 }
 
+/* IOS/Cisco blocks without title: add empty header bar */
+.md-typeset .highlight:has(pre.ios):not(:has(.filename))::before,
+.md-typeset .highlight:has(pre.cisco):not(:has(.filename))::before {
+  content: '';
+  display: block;
+  height: 2.2rem;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Three dots on all IOS/Cisco blocks */
+.md-typeset .highlight:has(pre.ios)::after,
+.md-typeset .highlight:has(pre.cisco)::after {
+  content: '';
+  position: absolute;
+  right: 1rem;
+  top: 1.1rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: -16px 0 0 #f59e0b, -32px 0 0 #ef4444;
+  z-index: 1;
+}
+
 /* When no filename: keep pre border-radius */
-.md-typeset .highlight:not(:has(.filename)) pre {
+.md-typeset .highlight:not(:has(.filename)):not(:has(pre.ios)):not(:has(pre.cisco)) pre {
   border-radius: 10px;
 }
 
@@ -459,8 +486,8 @@ div.md-nav__link.md-nav__container > .md-nav__link--active {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #ef4444;
-  box-shadow: 16px 0 0 #f59e0b, 32px 0 0 #22c55e;
+  background: #22c55e;
+  box-shadow: -16px 0 0 #f59e0b, -32px 0 0 #ef4444;
 }
 
 /* Table inside device card */
@@ -478,6 +505,8 @@ div.md-nav__link.md-nav__container > .md-nav__link--active {
   border-bottom: 1px solid var(--border) !important;
   padding: 0.45rem 1rem !important;
   color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.8rem;
 }
 
 .md-typeset .device table td:last-child {
