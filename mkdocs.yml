@@ -30,13 +30,45 @@ plugins:
 nav:
   - Start: index.md
   - Berufsschule:
-    - berufsschule/index.md
-    - Netzwerktechnik: berufsschule/netzwerk.md
-    - Testseite: berufsschule/testseite.md
-    - Testseite Nr-2: berufsschule/testseite-nr-2.md
-    - Test Nr-3: berufsschule/name.md
+    - Übersicht: berufsschule/index.md
+    - LF01 – Lernfeld 01:
+      - berufsschule/lf01/index.md
+    - LF02 – Lernfeld 02:
+      - berufsschule/lf02/index.md
+    - LF03 – Lernfeld 03:
+      - berufsschule/lf03/index.md
+    - LF04 – Lernfeld 04:
+      - berufsschule/lf04/index.md
+    - LF05 – Lernfeld 05:
+      - berufsschule/lf05/index.md
+    - LF06 – Lernfeld 06:
+      - berufsschule/lf06/index.md
+    - LF07 – Lernfeld 07:
+      - berufsschule/lf07/index.md
+    - LF08 – Lernfeld 08:
+      - berufsschule/lf08/index.md
+    - LF09 – Lernfeld 09:
+      - berufsschule/lf09/index.md
+    - LF10 – Lernfeld 10:
+      - berufsschule/lf10/index.md
+    - LF11 – Lernfeld 11:
+      - berufsschule/lf11/index.md
+    - LF12 – Lernfeld 12:
+      - berufsschule/lf12/index.md
+    - LF3W – Lernfeld 3W:
+      - berufsschule/lf3w/index.md
+    - LF8W – Lernfeld 8W:
+      - berufsschule/lf8w/index.md
+    - WSK:
+      - berufsschule/wsk/index.md
+    - Englisch:
+      - berufsschule/englisch/index.md
+    - Sport:
+      - berufsschule/sport/index.md
   - Notizen:
     - notizen/index.md
+
+    - Untitled: berufsschule/untitled.md
 
 markdown_extensions:
   - admonition
