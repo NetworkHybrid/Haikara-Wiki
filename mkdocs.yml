@@ -32,13 +32,23 @@ nav:
   - Berufsschule:
     - berufsschule/index.md
     - Netzwerktechnik: berufsschule/netzwerk.md
+    - Testseite: berufsschule/testseite.md
+    - Testseite Nr-2: berufsschule/testseite-nr-2.md
+    - Test Nr-3: berufsschule/name.md
   - Notizen:
     - notizen/index.md
 
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: ios
+          class: ios
+          format: !!python/name:pymdownx.superfences.fence_code_format
+        - name: cisco
+          class: cisco
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite

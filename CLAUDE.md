@@ -15,7 +15,7 @@ Haikara Wiki is a personal knowledge wiki (German-language) built with MkDocs Ma
 
 - **Dev (Main-PC):** `~/.local/bin/uvx --with mkdocs-material mkdocs serve` → http://127.0.0.1:8000
 - **Build:** `~/.local/bin/uvx --with mkdocs-material mkdocs build`
-- **Deploy:** Automatisch – Cron-Job auf 24/7-PC baut alle 5 Min neu
+- **Deploy:** Automatisch – Cron-Job auf 24/7-PC baut jede Minute neu
 
 ## Architecture
 
@@ -46,11 +46,11 @@ site/                       Built output (auto-generated, not committed)
 ## Deployment (Hosting)
 
 - **Produktiv-URL:** https://wiki.networkhybrid.de
-- **24/7-PC:** 10.0.2.1 (Pop!OS), XAMPP Apache
+- **24/7-PC:** 10.70.10.10 (Pop!OS), XAMPP Apache
 - **Build-Skript:** `/home/networkhybrid/build-wiki.sh`
 - **Output:** `/opt/lampp/htdocs/wiki`
-- **Cron:** alle 5 Min, Log: `/home/networkhybrid/wiki-build.log`
-- **Reverse Proxy:** NPM auf RPi-2 (10.0.2.25) mit Wildcard-SSL *.networkhybrid.de
+- **Cron:** jede Minute (Root-Crontab: `* * * * *`), Log: `/home/networkhybrid/wiki-build.log`
+- **Reverse Proxy:** NPM mit Wildcard-SSL *.networkhybrid.de
 - **Nextcloud-Pfad auf 24/7-PC:** `/var/lib/docker/volumes/networkhybrid_nextcloud_data/_data/data/admin/files/projects/Haikara-Wiki`
 
 ## Input-Ordner Workflow

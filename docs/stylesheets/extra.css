@@ -37,6 +37,16 @@
   --md-footer-fg-color:           var(--muted);
 }
 
+/* ── Noise Texture Background (ganzer Body, außer Header/Tabs) ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
 /* ── Base Fonts ──────────────────────────────────────────── */
 body,
 .md-typeset {
@@ -58,13 +68,13 @@ body {
 .md-main,
 .md-main__inner,
 .md-container {
-  background: var(--bg) !important;
+  background-color: transparent !important;
 }
 
 .md-sidebar,
 .md-sidebar__inner,
 .md-sidebar__scrollwrap {
-  background: var(--bg) !important;
+  background-color: transparent !important;
   border: none;
 }
 
@@ -218,10 +228,19 @@ body {
 }
 
 /* ── Code Blocks ─────────────────────────────────────────── */
+.md-typeset .highlight {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
 .md-typeset pre {
   background: #0a0c10;
-  border: 1px solid var(--border);
+  border: none;
   border-radius: 10px;
+  padding: 1rem 3rem 1rem 1.2rem;
+  margin: 0;
+  font-size: 0.8rem;
 }
 
 .md-typeset code {
@@ -262,9 +281,9 @@ body {
 /* ── Admonitions (Callouts) ──────────────────────────────── */
 .md-typeset .admonition,
 .md-typeset details {
-  border-radius: 0 8px 8px 0;
-  border: none;
-  border-left: 3px solid var(--accent3);
+  border-radius: 8px;
+  border: 1px solid var(--accent3);
+  border-left-width: 4px;
   background: rgba(247,151,79,0.06);
   box-shadow: none;
   font-size: 0.88rem;
@@ -282,45 +301,41 @@ body {
   padding-left: 0.8rem;
 }
 
+/* Icon ausblenden */
 .md-typeset .admonition-title::before,
 .md-typeset summary::before {
-  color: var(--accent3) !important;
+  display: none !important;
 }
 
 /* tip → teal */
 .md-typeset .admonition.tip,
 .md-typeset details.tip {
-  border-left-color: var(--accent);
+  border-color: var(--accent);
+  border-left-width: 4px;
   background: rgba(0,212,170,0.05);
 }
 .md-typeset .tip > .admonition-title,
 .md-typeset .tip > summary {
   color: var(--accent) !important;
 }
-.md-typeset .tip > .admonition-title::before,
-.md-typeset .tip > summary::before {
-  color: var(--accent) !important;
-}
 
 /* note → blue */
 .md-typeset .admonition.note,
 .md-typeset details.note {
-  border-left-color: var(--accent2);
+  border-color: var(--accent2);
+  border-left-width: 4px;
   background: rgba(79,142,247,0.06);
 }
 .md-typeset .note > .admonition-title,
 .md-typeset .note > summary {
   color: var(--accent2) !important;
 }
-.md-typeset .note > .admonition-title::before,
-.md-typeset .note > summary::before {
-  color: var(--accent2) !important;
-}
 
 /* success → green */
 .md-typeset .admonition.success,
 .md-typeset details.success {
-  border-left-color: var(--success);
+  border-color: var(--success);
+  border-left-width: 4px;
   background: rgba(34,197,94,0.05);
 }
 .md-typeset .success > .admonition-title,
@@ -331,16 +346,25 @@ body {
 /* warning */
 .md-typeset .admonition.warning,
 .md-typeset details.warning {
-  border-left-color: var(--warning);
+  border-color: var(--warning);
+  border-left-width: 4px;
   background: rgba(245,158,11,0.06);
 }
 .md-typeset .warning > .admonition-title,
 .md-typeset .warning > summary {
   color: var(--warning) !important;
 }
-.md-typeset .warning > .admonition-title::before,
-.md-typeset .warning > summary::before {
-  color: var(--warning) !important;
+
+/* danger */
+.md-typeset .admonition.danger,
+.md-typeset details.danger {
+  border-color: var(--danger, #ef4444);
+  border-left-width: 4px;
+  background: rgba(239,68,68,0.06);
+}
+.md-typeset .danger > .admonition-title,
+.md-typeset .danger > summary {
+  color: var(--danger, #ef4444) !important;
 }
 
 /* ── Search ──────────────────────────────────────────────── */
@@ -463,6 +487,82 @@ body {
 
 hr {
   border-color: var(--border) !important;
+}
+
+/* ── Syntax Highlighting (Cisco IOS / hljs classes) ─────── */
+.hljs-comment  { color: #636f88; }
+.hljs-built_in { color: #a78bfa; }
+.hljs-type     { color: #4f8ef7; }
+.hljs-attr     { color: #00d4aa; }
+.hljs-number   { color: #f7974f; }
+.hljs-string   { color: #00d4aa; }
+.hljs-keyword  { color: #4f8ef7; }
+
+/* ── Syntax Highlighting (Pygments overrides) ────────────── */
+.md-typeset .highlight .c,
+.md-typeset .highlight .c1,
+.md-typeset .highlight .cm  { color: #636f88; } /* comments */
+.md-typeset .highlight .k,
+.md-typeset .highlight .kd,
+.md-typeset .highlight .kn,
+.md-typeset .highlight .kr  { color: #4f8ef7; } /* keywords */
+.md-typeset .highlight .s,
+.md-typeset .highlight .s1,
+.md-typeset .highlight .s2  { color: #00d4aa; } /* strings */
+.md-typeset .highlight .na  { color: #00d4aa; } /* attr */
+.md-typeset .highlight .m,
+.md-typeset .highlight .mi,
+.md-typeset .highlight .mf  { color: #f7974f; } /* numbers */
+.md-typeset .highlight .nb  { color: #a78bfa; } /* builtins */
+.md-typeset .highlight .nc,
+.md-typeset .highlight .nf  { color: #4f8ef7; } /* class/func names */
+.md-typeset .highlight .n,
+.md-typeset .highlight .nv  { color: #e2e8f0; } /* names/vars */
+.md-typeset .highlight .gd  { color: #ef4444; } /* deleted */
+.md-typeset .highlight .gi  { color: #00d4aa; } /* inserted */
+
+/* ── Hero Section ────────────────────────────────────────── */
+.nh-hero {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.nh-hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.nh-hero-meta {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.nh-hero-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.nh-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background: rgba(0,212,170,0.12);
+  color: var(--accent);
+  border: 1px solid rgba(0,212,170,0.25);
 }
 
 /* ── Account Widget ──────────────────────────────────────── */
