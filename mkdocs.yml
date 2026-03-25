@@ -14,7 +14,8 @@ theme:
     accent: custom
   features:
     - navigation.tabs
-    - navigation.sections
+    - navigation.indexes
+    - navigation.prune
     - navigation.top
     - search.suggest
     - search.highlight
@@ -22,6 +23,9 @@ theme:
 
 extra_css:
   - stylesheets/extra.css
+
+hooks:
+  - hooks/meta_bar.py
 
 plugins:
   - search:
@@ -31,35 +35,35 @@ nav:
   - Start: index.md
   - Berufsschule:
     - Übersicht: berufsschule/index.md
-    - LF01 – Lernfeld 01:
+    - LF01:
       - berufsschule/lf01/index.md
-    - LF02 – Lernfeld 02:
+    - LF02:
       - berufsschule/lf02/index.md
-    - LF03 – Lernfeld 03:
+    - LF03:
       - berufsschule/lf03/index.md
-    - LF04 – Lernfeld 04:
-      - berufsschule/lf04/index.md
-    - LF05 – Lernfeld 05:
-      - berufsschule/lf05/index.md
-    - LF06 – Lernfeld 06:
-      - berufsschule/lf06/index.md
-    - LF07 – Lernfeld 07:
-      - berufsschule/lf07/index.md
-    - LF08 – Lernfeld 08:
-      - berufsschule/lf08/index.md
-    - LF09 – Lernfeld 09:
-      - berufsschule/lf09/index.md
-      - TestdokumentDie10t: berufsschule/lf09/testdokumentdie10t.md
-    - LF10 – Lernfeld 10:
-      - berufsschule/lf10/index.md
-    - LF11 – Lernfeld 11:
-      - berufsschule/lf11/index.md
-    - LF12 – Lernfeld 12:
-      - berufsschule/lf12/index.md
-    - LF3W – Lernfeld 3W:
+    - LF3W:
       - berufsschule/lf3w/index.md
-    - LF8W – Lernfeld 8W:
+    - LF04:
+      - berufsschule/lf04/index.md
+    - LF05:
+      - berufsschule/lf05/index.md
+    - LF06:
+      - berufsschule/lf06/index.md
+    - LF07:
+      - berufsschule/lf07/index.md
+    - LF08:
+      - berufsschule/lf08/index.md
+    - LF8W:
       - berufsschule/lf8w/index.md
+    - LF09:
+      - berufsschule/lf09/index.md
+      - Untitled: berufsschule/lf09/untitled.md
+    - LF10:
+      - berufsschule/lf10/index.md
+    - LF11:
+      - berufsschule/lf11/index.md
+    - LF12:
+      - berufsschule/lf12/index.md
     - WSK:
       - berufsschule/wsk/index.md
     - Englisch:

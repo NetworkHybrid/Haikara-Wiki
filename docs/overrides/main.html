@@ -6,14 +6,6 @@
     {% if page.meta.subject %}
     <div class="nh-hero-eyebrow">{{ page.meta.subject }}</div>
     {% endif %}
-    <div class="nh-hero-meta">
-      {% if page.meta.date %}
-      <span class="nh-hero-meta-item">📅 {{ page.meta.date }}</span>
-      {% endif %}
-      {% if page.meta.author %}
-      <span class="nh-hero-meta-item">✍ {{ page.meta.author }}</span>
-      {% endif %}
-    </div>
     {% if page.meta.tags %}
     <div class="nh-hero-tags">
       {% for tag in page.meta.tags %}
