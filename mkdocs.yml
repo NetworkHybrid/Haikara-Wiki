@@ -49,6 +49,7 @@ nav:
       - berufsschule/lf08/index.md
     - LF09 – Lernfeld 09:
       - berufsschule/lf09/index.md
+      - TestdokumentDie10t: berufsschule/lf09/testdokumentdie10t.md
     - LF10 – Lernfeld 10:
       - berufsschule/lf10/index.md
     - LF11 – Lernfeld 11:
@@ -67,8 +68,6 @@ nav:
       - berufsschule/sport/index.md
   - Notizen:
     - notizen/index.md
-
-    - Untitled: berufsschule/untitled.md
 
 markdown_extensions:
   - admonition
